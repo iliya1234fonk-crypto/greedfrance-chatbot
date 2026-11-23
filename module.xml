@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+  <Document name="greedfrance-chatbot.ZPM">
+    <Module>
+      <Name>greedfrance-chatbot</Name>
+      <Version>1.0.0</Version>
+      <Description>GreedFrance chatbot: Telegram bot on InterSystems IRIS Interoperability with ChatterBot</Description>
+      <Packaging>module</Packaging>
+      <Dependencies>
+        <ModuleReference>
+          <Name>webterminal</Name>
+          <Version>4.9.2</Version>
+        </ModuleReference>
+      </Dependencies>
+      <SourcesRoot>src</SourcesRoot>
+      <Resource Name="Telegram.PKG"/>
+      <Resource Name="dc.greedfrance.PKG"/>
+      <UnitTest Name="/src" Package="UnitTest" Phase="test"/>
+    </Module>
+  </Document>
+</Export>

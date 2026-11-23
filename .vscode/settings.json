@@ -1,0 +1,23 @@
+{
+  "files.associations": {
+  
+      "Dockerfile*": "dockerfile",
+      "iris.script": "objectscript"
+    },
+  "objectscript.conn" :{
+    "host": "localhost",
+    "port": 55038,
+    "ns": "USER",
+    "username": "_SYSTEM",
+    "password": "SYS",
+    "docker-compose": {
+      "service": "iris",
+      "internalPort": 52773
+    },
+    "links": {
+      "Web Terminal": "http://localhost:${port}/terminal/"
+    },
+    "active": true
+  }
+
+}
