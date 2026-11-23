@@ -1,10 +1,16 @@
-/// ����� ��� ������ � API Telegram
+/// Класс для работы с Bot API (Telegram или RecodeGram)
 Class Telegram.API Extends %RegisteredObject
 {
 
 Property Token As %String;
 
-Parameter SERVER = "api.telegram.org";
+/// Адрес Bot API. Для RecodeGram: 31.77.232.21:2500
+Parameter SERVER = "31.77.232.21";
+
+Parameter PORT = 2500;
+
+/// 1 - https, 0 - http
+Parameter HTTPS = 0;
 
 Property SSLConfiguration As %String;
 
@@ -13,8 +19,11 @@ Method GetRequestObj() As %Net.HttpRequest [ Private ]
 	#dim request as %Net.HttpRequest
 	set request = ##class(%Net.HttpRequest).%New()
 	set request.Server = ..#SERVER
-	set request.SSLConfiguration = ..SSLConfiguration
-	set request.Https = 1 
+	set request.Port = ..#PORT
+	if (..#HTTPS = 1) {
+		set request.Https = 1
+		set request.SSLConfiguration = ..SSLConfiguration
+	}
 	return request
 }
 
@@ -27,9 +36,9 @@ Method ExecuteRequest(request As %Net.HttpRequest, method As %String) As %Dynami
 	return ##class(%Library.DynamicObject).%FromJSON(request.HttpResponse.Data)
 }
 
-Method %OnNew(token As %String, ssl As %String) As %Status [ Private ]
+Method %OnNew(token As %String, ssl As %String = "") As %Status [ Private ]
 {
-	return:(token="" || ssl="") 0
+	return:(token="") 0
 	set ..Token = token
 	set ..SSLConfiguration = ssl
 	return $$$OK
@@ -62,56 +71,6 @@ Method SendMessage(chatId As %Integer, text As %String, parseMode As %String = "
 		do request.InsertFormData("reply_markup",replyMarkup.%ToJSON())
 	}
 	return ..ExecuteRequest(request, "sendMessage")
-}
-
-/// First create instance of Telegram.API: 
-///    set api = ##class(Telegram.API).%New(token, <ssl_configuration_name)
-/// Set webhook with
-///    write api.SetWebhook(url,certificate_folder, certificate_filename).%ToJSON()
-Method SetWebhook(url As %String, filedir As %String, filename As %String) As %DynamicObject
-{
-	Set SentHttpRequest=..GetRequestObj()
-	
-	Set RootMIMEPart = ##class(%Net.MIMEPart).%New()
-	
-	Set BinaryMIMEPart = ##class(%Net.MIMEPart).%New()
-    Set contentdisp = "form-data; name="_$CHAR(34)_"certificate"_$CHAR(34)_"; filename="
-                    _$CHAR(34)_""_filename_""_$CHAR(34)
-    Do BinaryMIMEPart.SetHeader("Content-Disposition",contentdisp)
-    
-    Set stream=##class(%FileBinaryStream).%New()
-    Set stream.Filename=filedir_filename
-    Do stream.LinkToFile(filedir_filename)
-     
-    Set BinaryMIMEPart.Body=stream
-    Do BinaryMIMEPart.SetHeader("Content-Type","text/plain")   
-     
-    Do RootMIMEPart.Parts.Insert(BinaryMIMEPart)
-    
-    Set TextMIMEPart=##class(%Net.MIMEPart).%New()
-    Set TextMIMEPart.Body=##class(%GlobalCharacterStream).%New()
-    Do TextMIMEPart.Body.Write(url)
-    
-    Set contentdisp = "form-data; name="_$CHAR(34)_"url"_$CHAR(34)_";"
-    Do TextMIMEPart.SetHeader("Content-Disposition",contentdisp)
-    
-    Do RootMIMEPart.Parts.Insert(TextMIMEPart)
-    
-    Set writer=##class(%Net.MIMEWriter).%New()
-    
-	$$$TOE(status, writer.OutputToStream(SentHttpRequest.EntityBody))
-	$$$TOE(status, writer.WriteMIMEBody(RootMIMEPart))
-       
-     
-	//do SentHttpRequest.InsertFormData("url",url)
-	
-	Set ContentType= "multipart/form-data; boundary="_RootMIMEPart.Boundary
-    Set SentHttpRequest.ContentType=ContentType
-    
-    set st = SentHttpRequest.Post("bot"_..Token_"/setWebhook")
-    
-
-    return ##class(%Library.DynamicObject).%FromJSON(SentHttpRequest.HttpResponse.Data)
 }
 
 Method DeleteWebhook() As %DynamicObject
