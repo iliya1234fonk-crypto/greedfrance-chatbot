@@ -1,0 +1,4 @@
+    zn "USER"
+    write "Enable interoperability: ",##class(%EnsembleMgr).EnableNamespace("USER"),!
+    write "Set autostart: ",##class(Ens.Director).SetAutoStart("dc.greedfrance.GreedFranceProduction"),!
+    halt

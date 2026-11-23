@@ -15,6 +15,7 @@ USER ${ISC_PACKAGE_MGRUSER}
 COPY src src
 COPY module.xml module.xml
 COPY iris.script iris.script
+COPY setup.script setup.script
 COPY requirements.txt requirements.txt
 COPY python-watch.sh python-watch.sh
 
@@ -36,5 +37,6 @@ RUN /usr/irissys/bin/irispython -m pip install --upgrade pip && \
     iris start IRIS && \
 	iris session IRIS < iris.script && \
     iris session iris "##class(%ZPM.PackageManager).Shell(\"load /opt/irisbuild -v\",1,1)" && \
+    (iris session iris < setup.script || true) && \
     ([ $TESTS -eq 0 ] || iris session iris "##class(%ZPM.PackageManager).Shell(\"test $MODULE -v -only\",1,1)") && \
     iris stop IRIS quietly
