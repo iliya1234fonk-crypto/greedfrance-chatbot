@@ -1,0 +1,14 @@
+zn "USER"
+Set prod=##class(Ens.Config.Production).%OpenId("dc.greedfrance.GreedFranceProduction")
+For i=1:1:prod.Items.Count() {
+  Set it=prod.Items.GetAt(i)
+  If it.Name="ToChatterbot" {
+    For j=1:1:it.Settings.Count() {
+      Set s=it.Settings.GetAt(j)
+      If s.Name="LowConfidenceThreshold" { Set s.Value=0.5 }
+    }
+  }
+}
+Write "save:",prod.%Save(),!
+Write "update:",##class(Ens.Director).UpdateProduction(),!
+Halt

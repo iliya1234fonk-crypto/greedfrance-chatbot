@@ -1,6 +1,6 @@
-=== Tue Nov 24 17:11:07 UTC 2026
+]633;E;echo "=== $(date -u)";799a548e-3f69-4d2f-addc-7c7553e9c0f5]633;C=== Tue Nov 24 17:11:41 UTC 2026
 CONTAINER ID   IMAGE          COMMAND                  CREATED        STATUS                        PORTS     NAMES
-40c238bd1f49   34828f5ee8c5   "/tini -- /docker-en…"   17 hours ago   Exited (255) 14 minutes ago             greedfrance-chatbot-iris-1
+40c238bd1f49   34828f5ee8c5   "/tini -- /docker-en…"   17 hours ago   Exited (255) 15 minutes ago             greedfrance-chatbot-iris-1
 Client:
  Version:    29.9.2-2
  Context:    default
@@ -10,14 +10,14 @@ Client:
     Version:  v0.38.1
     Path:     /usr/libexec/docker/cli-plugins/docker-buildx
 
-#8 [ 2/13] RUN apt update && apt install -y inotify-tools nano
+#8 [ 3/13] WORKDIR /opt/irisbuild
 #8 CACHED
 
 #9 [ 4/13] RUN chown irisowner:irisowner /opt/irisbuild
 #9 CACHED
 
 #10 [ 5/13] COPY src src
-#10 ERROR: failed to prepare kj9eqmzewhdmrlsmmgdzmq7ql as or2v8kta1np24ygbet25h6mnf: parent snapshot kj9eqmzewhdmrlsmmgdzmq7ql does not exist: not found
+#10 ERROR: failed to prepare kj9eqmzewhdmrlsmmgdzmq7ql as eoajnpuehhzku40tmdgz71s2d: parent snapshot kj9eqmzewhdmrlsmmgdzmq7ql does not exist: not found
 ------
  > [ 5/13] COPY src src:
 ------
@@ -37,5 +37,8 @@ Dockerfile:15
 
 --------------------
 
-failed to solve: failed to prepare kj9eqmzewhdmrlsmmgdzmq7ql as or2v8kta1np24ygbet25h6mnf: parent snapshot kj9eqmzewhdmrlsmmgdzmq7ql does not exist: not found
+failed to solve: failed to prepare kj9eqmzewhdmrlsmmgdzmq7ql as eoajnpuehhzku40tmdgz71s2d: parent snapshot kj9eqmzewhdmrlsmmgdzmq7ql does not exist: not found
 
+time="2026-11-24T17:11:42Z" level=warning msg="/workspaces/greedfrance-chatbot/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+NAME                         IMAGE                                                                     COMMAND                  SERVICE   CREATED        STATUS                        PORTS
+greedfrance-chatbot-iris-1   sha256:34828f5ee8c5b4d348437fc1216189a9635cad7d31a6435f9d27b029a9773383   "/tini -- /docker-en…"   iris      17 hours ago   Exited (255) 15 minutes ago   

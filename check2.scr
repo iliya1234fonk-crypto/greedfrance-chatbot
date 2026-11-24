@@ -1,0 +1,12 @@
+zn "USER"
+Write "ts:",$zdatetime($h,3),!
+Write "running:",##class(Ens.Director).IsProductionRunning(),!
+Write "Emoji compiled:",##class(%Dictionary.CompiledClass).%ExistsId("dc.greedfrance.Emoji"),!
+Write "Moderator compiled:",##class(%Dictionary.CompiledClass).%ExistsId("dc.greedfrance.Moderator"),!
+Write "compile Emoji: ",$system.OBJ.Compile("dc.greedfrance.Emoji","ck"),!
+Write "compile Moderator: ",$system.OBJ.Compile("dc.greedfrance.Moderator","ck"),!
+Write "render: ",##class(dc.greedfrance.Emoji).Render("test ⚠ emoji"),!
+Set q="SELECT TOP 15 TimeLogged,Type,ConfigName,Text FROM Ens_Util.Log ORDER BY ID DESC"
+Set rs=##class(%SQL.Statement).%ExecDirect(,q)
+While rs.%Next() { Write rs.TimeLogged,"|",rs.Type,"|",rs.ConfigName,"|",$E(rs.Text,1,250),! }
+Halt

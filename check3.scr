@@ -1,0 +1,15 @@
+zn "USER"
+Write "running:",##class(Ens.Director).IsProductionRunning(),!
+Write "prod:",##class(Ens.Director).GetActiveProductionName(),!
+Write "cred:",##class(Ens.Config.Credentials).%ExistsId("telegram"),!
+Write "Emoji:",##class(%Dictionary.CompiledClass).%ExistsId("dc.greedfrance.Emoji"),!
+Write "Moderator:",##class(%Dictionary.CompiledClass).%ExistsId("dc.greedfrance.Moderator"),!
+Write "cmpEmoji:",$system.OBJ.Compile("dc.greedfrance.Emoji","ck"),!
+Write "cmpModerator:",$system.OBJ.Compile("dc.greedfrance.Moderator","ck"),!
+Write "render:",##class(dc.greedfrance.Emoji).Render("x ⚠ y"),!
+If '##class(Ens.Director).IsProductionRunning() { Write "start:",##class(Ens.Director).StartProduction("dc.greedfrance.GreedFranceProduction"),! }
+Write "running now:",##class(Ens.Director).IsProductionRunning(),!
+Set q="SELECT TOP 15 TimeLogged,Type,ConfigName,Text FROM Ens_Util.Log ORDER BY ID DESC"
+Set rs=##class(%SQL.Statement).%ExecDirect(,q)
+While rs.%Next() { Write rs.TimeLogged,"|",rs.Type,"|",rs.ConfigName,"|",$E(rs.Text,1,250),! }
+Halt

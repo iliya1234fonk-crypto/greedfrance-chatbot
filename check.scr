@@ -1,0 +1,5 @@
+zn "USER"
+Set q="SELECT TOP 8 TimeLogged,Type,ConfigName,Text FROM Ens_Util.Log ORDER BY ID DESC"
+Set rs=##class(%SQL.Statement).%ExecDirect(,q)
+While rs.%Next() { Write rs.TimeLogged,"|",rs.Type,"|",rs.ConfigName,"|",$E(rs.Text,1,180),! }
+Halt
