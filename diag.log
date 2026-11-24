@@ -1,44 +1,9 @@
-]633;E;echo "=== $(date -u)";799a548e-3f69-4d2f-addc-7c7553e9c0f5]633;C=== Tue Nov 24 17:12:34 UTC 2026
-CONTAINER ID   IMAGE          COMMAND                  CREATED        STATUS                        PORTS     NAMES
-40c238bd1f49   34828f5ee8c5   "/tini -- /docker-en…"   17 hours ago   Exited (255) 16 minutes ago             greedfrance-chatbot-iris-1
-Client:
- Version:    29.9.2-2
- Context:    default
- Debug Mode: false
- Plugins:
-  buildx: Docker Buildx (Docker Inc.)
-    Version:  v0.38.1
-    Path:     /usr/libexec/docker/cli-plugins/docker-buildx
-
-#8 [ 2/13] RUN apt update && apt install -y inotify-tools nano
-#8 CACHED
-
-#9 [ 4/13] RUN chown irisowner:irisowner /opt/irisbuild
-#9 CACHED
-
-#10 [ 5/13] COPY src src
-#10 ERROR: failed to prepare kj9eqmzewhdmrlsmmgdzmq7ql as r4tql5ckkejii15j0lgne9er8: parent snapshot kj9eqmzewhdmrlsmmgdzmq7ql does not exist: not found
-------
- > [ 5/13] COPY src src:
-------
-Dockerfile:15
-
---------------------
-
-  13 |     USER ${ISC_PACKAGE_MGRUSER}
-
-  14 |     
-
-  15 | >>> COPY src src
-
-  16 |     COPY module.xml module.xml
-
-  17 |     COPY iris.script iris.script
-
---------------------
-
-failed to solve: failed to prepare kj9eqmzewhdmrlsmmgdzmq7ql as r4tql5ckkejii15j0lgne9er8: parent snapshot kj9eqmzewhdmrlsmmgdzmq7ql does not exist: not found
-
-time="2026-11-24T17:12:34Z" level=warning msg="/workspaces/greedfrance-chatbot/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
-NAME                         IMAGE                                                                     COMMAND                  SERVICE   CREATED        STATUS                        PORTS
-greedfrance-chatbot-iris-1   sha256:34828f5ee8c5b4d348437fc1216189a9635cad7d31a6435f9d27b029a9773383   "/tini -- /docker-en…"   iris      17 hours ago   Exited (255) 16 minutes ago   
+]633;E;echo "=== $(date -u) ===";f4c4bd5e-2a1c-4b84-be55-1297af72e476]633;C=== Tue Nov 24 17:14:12 UTC 2026 ===
+time="2026-11-24T17:14:12Z" level=warning msg="/workspaces/greedfrance-chatbot/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ Container greedfrance-chatbot-iris-1 Recreate 
+ Container greedfrance-chatbot-iris-1 Error response from daemon: No such image: greedfrance-chatbot-iris:latest 
+Error response from daemon: No such image: greedfrance-chatbot-iris:latest
+time="2026-11-24T17:14:30Z" level=warning msg="/workspaces/greedfrance-chatbot/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+NAME      IMAGE     COMMAND   SERVICE   CREATED   STATUS    PORTS
+time="2026-11-24T17:14:30Z" level=warning msg="/workspaces/greedfrance-chatbot/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+service "iris" is not running
