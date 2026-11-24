@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Диагностика и запуск GreedFrance в Codespace.
+# GreedFrance: обновить код, поднять контейнер, скомпилировать, запустить production.
 # Использование:
 #   curl -fsSL https://raw.githubusercontent.com/iliya1234fonk-crypto/greedfrance-chatbot/main/run.sh | bash -s -- <PAT>
 set -u
@@ -12,27 +12,29 @@ cd "$REPO" || { echo "нет папки $REPO"; exit 1; }
 
 {
   echo "=== $(date -u) ==="
-  echo "--- up"
-  timeout 300 docker compose up -d --no-build 2>&1 | tail -10
-  echo "--- wait"
-  for i in 1 2 3 4 5 6 7 8 9 10 11 12; do
+  echo "--- git update"
+  git fetch origin -q && git reset --hard origin/main -q
+  git log --oneline -1
+  echo "--- restart iris"
+  timeout 300 docker compose restart iris 2>&1 | tail -3
+  echo "--- wait healthy"
+  for i in $(seq 1 24); do
     sleep 5
-    if docker compose ps --format '{{.State}}' 2>/dev/null | grep -qi running; then
-      echo "container running after $((i*5))s"
+    if docker compose ps --format '{{.Status}}' 2>/dev/null | grep -qi healthy; then
+      echo "healthy after $((i*5))s"
       break
     fi
   done
-  echo "--- ps"
   docker compose ps
 } > "$LOG" 2>&1
 
-cat > check4.scr << 'SCR'
+cat > check5.scr << 'SCR'
 zn "USER"
 Write "running:",##class(Ens.Director).IsProductionRunning(),!
 Write "cred:",##class(Ens.Config.Credentials).%ExistsId("telegram"),!
 Write "cmpEmoji:",$system.OBJ.Compile("dc.greedfrance.Emoji","ck"),!
 Write "cmpModerator:",$system.OBJ.Compile("dc.greedfrance.Moderator","ck"),!
-Write "render:",##class(dc.greedfrance.Emoji).Render("x ⚠ y"),!
+Write "cmpAPI:",$system.OBJ.Compile("Telegram.API","ck"),!
 Write "render tag:",($find(##class(dc.greedfrance.Emoji).Render("x ⚠ y"),"<tg-emoji")>0),!
 If '##class(Ens.Director).IsProductionRunning() {
 	Set st=##class(Ens.Director).StartProduction("dc.greedfrance.GreedFranceProduction")
@@ -49,10 +51,10 @@ While rs.%Next() { Write rs.TimeLogged,"|",rs.Type,"|",rs.ConfigName,"|",$E(rs.T
 Halt
 SCR
 
-timeout 180 docker compose exec -T iris iris session IRIS < check4.scr >> "$LOG" 2>&1
+timeout 240 docker compose exec -T iris iris session IRIS < check5.scr >> "$LOG" 2>&1
 
 {
-  echo "--- git"
+  echo "--- git push"
   git add -A
   git commit -q -m diag || true
   git pull --rebase -q || true
