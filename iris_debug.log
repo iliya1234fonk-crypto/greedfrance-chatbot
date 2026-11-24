@@ -6,22 +6,23 @@ USER>
 USER>
 
 USER>
-2026-11-24 00:21:54.489 | 2 | ChatbotRouter | ERROR <Ens>ErrBPTerminated: Terminating BP ChatbotRouter # due to error: ERROR <Ens>ErrException: <THROW>ProcessRequest+3^dc.greedfrance.ToChatterbot.1 *%Exception.PythonException <PYTHON EXCEPTION> 246 <class 'chatterbo
-2026-11-24 00:21:54.486 | 2 | ChatbotRouter | ERROR <Ens>ErrBPTerminated: Terminating BP ChatbotRouter # due to error: ERROR <Ens>ErrException: <THROW>ProcessRequest+3^dc.greedfrance.ToChatterbot.1 *%Exception.PythonException <PYTHON EXCEPTION> 246 <class 'chatterbo
-2026-11-24 00:21:54.156 | 2 | ToChatterbot | ERROR <Ens>ErrException: <THROW>ProcessRequest+3^dc.greedfrance.ToChatterbot.1 *%Exception.PythonException <PYTHON EXCEPTION> 246 <class 'chatterbot.chatterbot.ChatBot.ChatBotException'>: Setup error:
-The Spacy model for
-2026-11-24 00:21:54.152 | 5 | ToChatterbot | {"_class":"dc.greedfrance.ChatbotRequest","_id":6,"UserInputText":"Hi"}
-2026-11-24 00:21:54.151 | 2 | ToChatterbot | ERROR <Ens>ErrException: <THROW>ProcessRequest+3^dc.greedfrance.ToChatterbot.1 *%Exception.PythonException <PYTHON EXCEPTION> 246 <class 'chatterbot.chatterbot.ChatBot.ChatBotException'>: Setup error:
-The Spacy model for
-2026-11-24 00:21:49.541 | 5 | ChatbotRouter | {"_class":"dc.greedfrance.TelegramRequest","_id":2,"RequestText":"Hi","RequestChatId":1780243486}
-2026-11-24 00:21:49.433 | 5 | ToChatterbot | {"_class":"dc.greedfrance.ChatbotRequest","_id":3,"UserInputText":"/start"}
-2026-11-24 00:21:49.429 | 4 | Ens.MonitorService | ConfigItem 'Ens.MonitorService' started in job 1554
-2026-11-24 00:21:49.428 | 5 | ChatbotRouter | {"_class":"dc.greedfrance.TelegramRequest","_id":1,"RequestText":"/start","RequestChatId":1780243486}
-2026-11-24 00:21:49.422 | 5 | FromTelegram | 
-2026-11-24 00:21:49.413 | 5 | FromTelegram | {"message":{"chat":{"first_name":"???????","id":1780243486,"type":"private","username":"greed"},"date":1795479515,"from":{"first_name":"???????","id":1780243486,"is_bot":false,"username":"greed"},"message_id":2,"text":"H
-2026-11-24 00:21:49.413 | 5 | FromTelegram | 
-2026-11-24 00:21:49.407 | 5 | FromTelegram | {"message":{"chat":{"first_name":"???????","id":1780243486,"type":"private","username":"greed"},"date":1795479511,"entities":[{"length":6,"offset":0,"type":"bot_command"}],"from":{"first_name":"???????","id":1780243486,"
-2026-11-24 00:21:49.249 | 4 | FromTelegram | ConfigItem 'FromTelegram' (dc.greedfrance.FromTelegram) started in job 1557
-2026-11-24 00:21:49.246 | 4 | ToTelegram | ConfigItem 'ToTelegram' (Telegram.TelegramOperation) started in job 1559
+2026-11-24 00:23:54.146 | 2 | ChatbotRouter | ERROR <Ens>ErrBPTerminated: Terminating BP ChatbotRouter # due to error: ERROR <Ens>ErrException: <THROW>ProcessRequest+3^dc.greedfrance.ToChatterbot.1 *%Exception.PythonException <PYTHON EXCEPTION> 246 <class 'chatterbo
+2026-11-24 00:23:54.144 | 2 | ToChatterbot | ERROR <Ens>ErrException: <THROW>ProcessRequest+3^dc.greedfrance.ToChatterbot.1 *%Exception.PythonException <PYTHON EXCEPTION> 246 <class 'chatterbot.exceptions.OptionalDependencyImportError'>: Unable to import "yaml".
+Pl
+2026-11-24 00:23:53.661 | 2 | ChatbotRouter | ERROR <Ens>ErrBPTerminated: Terminating BP ChatbotRouter # due to error: ERROR <Ens>ErrException: <THROW>ProcessRequest+3^dc.greedfrance.ToChatterbot.1 *%Exception.PythonException <PYTHON EXCEPTION> 246 <class 'chatterbo
+2026-11-24 00:23:53.659 | 5 | ToChatterbot | {"_class":"dc.greedfrance.ChatbotRequest","_id":22,"UserInputText":"/start"}
+2026-11-24 00:23:53.658 | 2 | ToChatterbot | ERROR <Ens>ErrException: <THROW>ProcessRequest+3^dc.greedfrance.ToChatterbot.1 *%Exception.PythonException <PYTHON EXCEPTION> 246 <class 'chatterbot.exceptions.OptionalDependencyImportError'>: Unable to import "yaml".
+Pl
+2026-11-24 00:23:53.004 | 5 | FromTelegram | 
+2026-11-24 00:23:52.995 | 5 | ChatbotRouter | {"_class":"dc.greedfrance.TelegramRequest","_id":21,"RequestText":"/start","RequestChatId":1780243486}
+2026-11-24 00:23:52.993 | 5 | FromTelegram | {"message":{"chat":{"first_name":"???????","id":1780243486,"type":"private","username":"greed"},"date":1795479832,"entities":[{"length":6,"offset":0,"type":"bot_command"}],"from":{"first_name":"???????","id":1780243486,"
+2026-11-24 00:23:52.993 | 5 | FromTelegram | 
+2026-11-24 00:23:52.986 | 5 | ToChatterbot | {"_class":"dc.greedfrance.ChatbotRequest","_id":18,"UserInputText":"/start"}
+2026-11-24 00:23:52.982 | 5 | ChatbotRouter | {"_class":"dc.greedfrance.TelegramRequest","_id":17,"RequestText":"/start","RequestChatId":1780243486}
+2026-11-24 00:23:52.98 | 5 | FromTelegram | {"message":{"chat":{"first_name":"???????","id":1780243486,"type":"private","username":"greed"},"date":1795479831,"entities":[{"length":6,"offset":0,"type":"bot_command"}],"from":{"first_name":"???????","id":1780243486,"
+2026-11-24 00:23:07.716 | 2 | ChatbotRouter | ERROR <Ens>ErrBPTerminated: Terminating BP ChatbotRouter # due to error: ERROR <Ens>ErrException: <THROW>ProcessRequest+3^dc.greedfrance.ToChatterbot.1 *%Exception.PythonException <PYTHON EXCEPTION> 246 <class 'chatterbo
+2026-11-24 00:23:07.713 | 2 | ToChatterbot | ERROR <Ens>ErrException: <THROW>ProcessRequest+3^dc.greedfrance.ToChatterbot.1 *%Exception.PythonException <PYTHON EXCEPTION> 246 <class 'chatterbot.exceptions.OptionalDependencyImportError'>: Unable to import "yaml".
+Pl
+2026-11-24 00:23:07.185 | 2 | ChatbotRouter | ERROR <Ens>ErrBPTerminated: Terminating BP ChatbotRouter # due to error: ERROR <Ens>ErrException: <THROW>ProcessRequest+3^dc.greedfrance.ToChatterbot.1 *%Exception.PythonException <PYTHON EXCEPTION> 246 <class 'chatterbo
 
 USER>
