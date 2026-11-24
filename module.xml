@@ -3,8 +3,8 @@
   <Document name="greedfrance-chatbot.ZPM">
     <Module>
       <Name>greedfrance-chatbot</Name>
-      <Version>1.0.0</Version>
-      <Description>GreedFrance chatbot: Telegram bot on InterSystems IRIS Interoperability with ChatterBot</Description>
+      <Version>1.1.0</Version>
+      <Description>GreedFrance chatbot: Telegram bot on InterSystems IRIS Interoperability with ChatterBot + group moderation (antiflood, warnings, stats)</Description>
       <Packaging>module</Packaging>
       <Dependencies>
         <ModuleReference>

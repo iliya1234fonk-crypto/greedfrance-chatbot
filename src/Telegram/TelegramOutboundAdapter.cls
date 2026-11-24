@@ -31,6 +31,18 @@ Method SendMessage(chatId As %String, text As %String, removeKeyboard As %Boolea
 	return $$$ERROR($$$GeneralError, "Error while sending a message")
 }
 
+Method DeleteMessage(chatId As %String, messageId As %Integer) As %Status
+{
+	if (messageId=0) {
+		return $$$OK
+	}
+	set res = ..API.DeleteMessage(chatId,messageId)
+	if (res.ok) {
+		return $$$OK
+	}
+	return $$$ERROR($$$GeneralError, "Error while deleting a message")
+}
+
 Method SendButton(chatId As %String, text As %String, buttonText As %String = "", getPhone As %Boolean = 0) As %Status
 {
 	set button = {}

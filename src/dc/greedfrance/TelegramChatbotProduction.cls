@@ -8,6 +8,8 @@ XData ProductionDefinition
   <ActorPoolSize>2</ActorPoolSize>
   <Item Name="ToChatterbot" Category="" ClassName="dc.greedfrance.ToChatterbot" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
   </Item>
+  <Item Name="ModerationRouter" Category="" ClassName="dc.greedfrance.ModerationRouter" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  </Item>
   <Item Name="ChatbotRouter" Category="" ClassName="dc.greedfrance.ChatbotRouter" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
   </Item>
   <Item Name="FromTelegram" Category="" ClassName="dc.greedfrance.FromTelegram" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">

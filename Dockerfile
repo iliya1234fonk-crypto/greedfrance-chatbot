@@ -34,6 +34,8 @@ ARG TESTS=1
 RUN /usr/irissys/bin/irispython -m pip install --upgrade pip && \
     /usr/irissys/bin/irispython -m pip install -r requirements.txt && \
     /usr/irissys/bin/irispython -m pip install chatterbot_corpus && \
+    /usr/irissys/bin/irispython -m spacy download en_core_web_sm && \
+    echo '{}' > /tmp/my_export.json && \
     iris start IRIS && \
 	iris session IRIS < iris.script && \
     iris session iris "##class(%ZPM.PackageManager).Shell(\"load /opt/irisbuild -v\",1,1)" && \

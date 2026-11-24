@@ -73,6 +73,15 @@ Method SendMessage(chatId As %Integer, text As %String, parseMode As %String = "
 	return ..ExecuteRequest(request, "sendMessage")
 }
 
+Method DeleteMessage(chatId As %String, messageId As %Integer) As %DynamicObject
+{
+	#dim request as %Net.HttpRequest
+	set request = ..GetRequestObj()
+	do request.InsertFormData("chat_id",chatId)
+	do request.InsertFormData("message_id",messageId)
+	return ..ExecuteRequest(request, "deleteMessage")
+}
+
 Method DeleteWebhook() As %DynamicObject
 {
 	return ..ExecuteRequest(..GetRequestObj(), "deleteWebhook")

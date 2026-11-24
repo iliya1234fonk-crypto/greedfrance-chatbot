@@ -7,18 +7,31 @@ Telegram-чатбот на базе [InterSystems IRIS](https://www.intersystems
 ## Возможности
 
 - Приём сообщений из Telegram через IRIS Interoperability production.
-- Маршрутизация сообщений в бизнес-процесс `dc.greedfrance.ChatbotRouter`.
-- Генерация ответов через Python ChatterBot (`dc.greedfrance.ToChatterbot`).
+- Модерация: антифлуд, предупреждения, удаление сообщений, приветствие новых участников.
+- Команды: `/help`, `/rules`, `/id`, `/stats`, `/warn`, `/unwarn`, `/warns`, `/del`.
+- Маршрутизация обычного текста в ChatterBot (`dc.greedfrance.ChatbotRouter`).
 - Отправка ответа обратно в Telegram.
-- Готовая структура для расширения: модерация чата, статистика, команды, свои правила.
 
 ## Что внутри
 
 - `dc.greedfrance.GreedFranceProduction` — production IRIS.
-- `FromTelegram` — входящие сообщения из Telegram.
-- `ChatbotRouter` — маршрутизация.
+- `FromTelegram` — входящие сообщения из Telegram (текст, кто, из какого чата, ответ на что, новые участники).
+- `ModerationRouter` — команды, антифлуд, приветствия, статистика.
+- `ChatbotRouter` — BPL: обычный текст → ChatterBot → ответ.
 - `ToChatterbot` — ответы через ChatterBot.
-- `ToTelegram` — отправка сообщений в Telegram.
+- `ToTelegram` — отправка сообщений и удаление сообщений в Telegram.
+
+## Ограничения Bot API RecodeGram
+
+Сервер `http://31.77.232.21:2500` (обычный Bot API Telegram не используется) **не поддерживает** методы администрирования, сервер отвечает `METHOD_NOT_FOUND`:
+
+- `banChatMember`, `restrictChatMember`, `getChatAdministrators`, `getChatMember`, `getChat`
+- `pinChatMessage`, `promoteChatMember`, `setChatPermissions`, `leaveChat`
+
+Работают: `sendMessage`, `editMessageText`, `deleteMessage`, `sendPhoto/Document/Sticker/Video/Voice`, `getUpdates`, `setWebhook`, `getFile`.
+
+Поэтому бот не может банить и мутить сам — только удалять сообщения, вести предупреждения и статистику. Для полной модерации нужно, чтобы владелец сервера добавил методы выше в API.
+
 
 ## Требования
 
