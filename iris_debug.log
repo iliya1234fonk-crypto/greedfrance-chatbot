@@ -1,5 +1,5 @@
-===diag Tue Nov 24 00:38:17 UTC 2026===
-time="2026-11-24T00:38:17Z" level=warning msg="/workspaces/greedfrance-chatbot/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+===diag Tue Nov 24 00:52:56 UTC 2026===
+time="2026-11-24T00:52:57Z" level=warning msg="/workspaces/greedfrance-chatbot/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
 
 Node: 40c238bd1f49, Instance: IRIS
 
@@ -8,21 +8,15 @@ USER>
 USER>
 
 USER>
-State:1
 
 USER>
-
-USER>
-
-USER>
-
-USER>
-
-USER>
-2026-11-24 00:35:53.348|2|ChatbotRouter|ERROR <Ens>ErrBPTerminated: Terminating BP ChatbotRouter # due to error: ERROR <Ens>ErrException: <THROW>ProcessRequest+3^dc.greedfrance.ToChatterbot.1 *%Exception.PythonException <PYTHON EXCEPTION> 2
-2026-11-24 00:35:53.345|2|ToChatterbot|ERROR <Ens>ErrException: <THROW>ProcessRequest+3^dc.greedfrance.ToChatterbot.1 *%Exception.PythonException <PYTHON EXCEPTION> 246 <class 'chatterbot.exceptions.OptionalDependencyImportError'>: Unable 
-2026-11-24 00:35:52.899|2|ChatbotRouter|ERROR <Ens>ErrBPTerminated: Terminating BP ChatbotRouter # due to error: ERROR <Ens>ErrException: <THROW>ProcessRequest+3^dc.greedfrance.ToChatterbot.1 *%Exception.PythonException <PYTHON EXCEPTION> 2
-2026-11-24 00:35:52.895|5|ToChatterbot|{"_class":"dc.greedfrance.ChatbotRequest","_id":34,"UserInputText":"Hi"}
-2026-11-24 00:35:52.894|2|ToChatterbot|ERROR <Ens>ErrException: <THROW>ProcessRequest+3^dc.greedfrance.ToChatterbot.1 *%Exception.PythonException <PYTHON EXCEPTION> 246 <class 'chatterbot.exceptions.OptionalDependencyImportError'>: Unable 
+2026-11-24 00:51:35.453|2|ChatbotRouter|ERROR <Ens>ErrBPTerminated: Terminating BP ChatbotRouter # due to error: ERROR <Ens>ErrException: <THROW>ProcessRequest+3^dc.greedfrance.ToChatterbot.1 *%Exception.PythonException 
+2026-11-24 00:51:35.45|2|ToChatterbot|ERROR <Ens>ErrException: <THROW>ProcessRequest+3^dc.greedfrance.ToChatterbot.1 *%Exception.PythonException <PYTHON EXCEPTION> 246 <class 'chatterbot.exceptions.OptionalDependencyIm
+2026-11-24 00:51:34.955|5|FromTelegram|
+2026-11-24 00:51:34.947|5|ToChatterbot|{"_class":"dc.greedfrance.ChatbotRequest","_id":42,"UserInputText":"Hi"}
+2026-11-24 00:51:34.946|5|ChatbotRouter|{"_class":"dc.greedfrance.TelegramRequest","_id":41,"RequestText":"Hi","RequestChatId":1780243486}
+2026-11-24 00:51:34.945|5|FromTelegram|{"message":{"chat":{"first_name":"???????","id":1780243486,"type":"private","username":"greed"},"date":1795481490,"from":{"first_name":"???????","id":1780243486,"is_bot":false,"use
+2026-11-24 00:51:33.463|2|ChatbotRouter|ERROR <Ens>ErrBPTerminated: Terminating BP ChatbotRouter # due to error: ERROR <Ens>ErrException: <THROW>ProcessRequest+3^dc.greedfrance.ToChatterbot.1 *%Exception.PythonException 
+2026-11-24 00:51:33.46|2|ToChatterbot|ERROR <Ens>ErrException: <THROW>ProcessRequest+3^dc.greedfrance.ToChatterbot.1 *%Exception.PythonException <PYTHON EXCEPTION> 246 <class 'chatterbot.exceptions.OptionalDependencyIm
 
 USER>
