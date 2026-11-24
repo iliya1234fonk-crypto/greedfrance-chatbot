@@ -1,4 +1,6 @@
     zn "USER"
     write "import: ",##class(%SYSTEM.OBJ).ImportDir("/irisrun/repo/src","*.cls","ck",,1),!
+    write "Moderator class: ",##class(%Dictionary.ClassDefinition).%ExistsId("dc.greedfrance.Moderator"),!
     write "update: ",##class(Ens.Director).UpdateProduction(),!
+    write "running: ",##class(Ens.Director).IsProductionRunning(),!
     halt

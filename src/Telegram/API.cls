@@ -110,7 +110,29 @@ Method CallMethod(method As %String, form As %DynamicObject = "") As %DynamicObj
 			do request.InsertFormData(key, value)
 		}
 	}
-	return ..ExecuteRequest(request, method)
+	try {
+		set res = ..ExecuteRequest(request, method)
+	} catch ex {
+		// Ошибка HTTP (например 404 на неподдерживаемый метод) — не падаем,
+		// а возвращаем объект в формате Bot API.
+		set code = 0
+		set desc = ex.DisplayString()
+		if $isobject(request.HttpResponse) {
+			set code = request.HttpResponse.StatusCode
+			set data = request.HttpResponse.Data
+			if $isobject(data) && (data.Size > 0) {
+				set body = data.Read(8000)
+				if (body '= "") {
+					set desc = body
+				}
+			}
+		}
+		set res = {}
+		do res.%Set("ok", 0, "boolean")
+		do res.%Set("error_code", +code, "number")
+		do res.%Set("description", $extract(desc, 1, 300))
+	}
+	return res
 }
 
 }
