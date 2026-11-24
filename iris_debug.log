@@ -1,5 +1,8 @@
+time="2026-11-24T00:26:19Z" level=warning msg="/workspaces/greedfrance-chatbot/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
 
 Node: 40c238bd1f49, Instance: IRIS
+
+USER>
 
 USER>
 Running:1
@@ -12,16 +15,5 @@ NeedsUpdate:0
 
 USER>
 Cred telegram exists:1
-
-USER>
-
-USER>
-
-USER>
-2026-11-24 00:25:00.436|2|ChatbotRouter|ERROR <Ens>ErrBPTerminated: Terminating BP ChatbotRouter # due to error: ERROR <Ens>ErrException: <THROW>ProcessRequest+3^dc.greedfrance.ToChatterbot.1 *%Exception.PythonException 
-2026-11-24 00:25:00.426|2|ToChatterbot|ERROR <Ens>ErrException: <THROW>ProcessRequest+3^dc.greedfrance.ToChatterbot.1 *%Exception.PythonException <PYTHON EXCEPTION> 246 <class 'chatterbot.exceptions.OptionalDependencyIm
-2026-11-24 00:24:59.839|5|FromTelegram|
-2026-11-24 00:24:59.838|5|ToChatterbot|{"_class":"dc.greedfrance.ChatbotRequest","_id":26,"UserInputText":"Hi"}
-2026-11-24 00:24:59.837|5|ChatbotRouter|{"_class":"dc.greedfrance.TelegramRequest","_id":25,"RequestText":"Hi","RequestChatId":1780243486}
 
 USER>
