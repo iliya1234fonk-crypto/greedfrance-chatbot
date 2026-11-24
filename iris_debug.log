@@ -1,7 +1,28 @@
-time="2026-11-24T00:32:23Z" level=warning msg="/workspaces/greedfrance-chatbot/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+===diag Tue Nov 24 00:38:17 UTC 2026===
+time="2026-11-24T00:38:17Z" level=warning msg="/workspaces/greedfrance-chatbot/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
 
 Node: 40c238bd1f49, Instance: IRIS
 
 USER>
-<ENDOFFILE>
-<ERRTRAP>
+
+USER>
+
+USER>
+State:1
+
+USER>
+
+USER>
+
+USER>
+
+USER>
+
+USER>
+2026-11-24 00:35:53.348|2|ChatbotRouter|ERROR <Ens>ErrBPTerminated: Terminating BP ChatbotRouter # due to error: ERROR <Ens>ErrException: <THROW>ProcessRequest+3^dc.greedfrance.ToChatterbot.1 *%Exception.PythonException <PYTHON EXCEPTION> 2
+2026-11-24 00:35:53.345|2|ToChatterbot|ERROR <Ens>ErrException: <THROW>ProcessRequest+3^dc.greedfrance.ToChatterbot.1 *%Exception.PythonException <PYTHON EXCEPTION> 246 <class 'chatterbot.exceptions.OptionalDependencyImportError'>: Unable 
+2026-11-24 00:35:52.899|2|ChatbotRouter|ERROR <Ens>ErrBPTerminated: Terminating BP ChatbotRouter # due to error: ERROR <Ens>ErrException: <THROW>ProcessRequest+3^dc.greedfrance.ToChatterbot.1 *%Exception.PythonException <PYTHON EXCEPTION> 2
+2026-11-24 00:35:52.895|5|ToChatterbot|{"_class":"dc.greedfrance.ChatbotRequest","_id":34,"UserInputText":"Hi"}
+2026-11-24 00:35:52.894|2|ToChatterbot|ERROR <Ens>ErrException: <THROW>ProcessRequest+3^dc.greedfrance.ToChatterbot.1 *%Exception.PythonException <PYTHON EXCEPTION> 246 <class 'chatterbot.exceptions.OptionalDependencyImportError'>: Unable 
+
+USER>
