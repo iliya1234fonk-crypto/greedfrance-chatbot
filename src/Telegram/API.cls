@@ -92,4 +92,25 @@ Method GetWebhookInfo() As %DynamicObject
 	return ..ExecuteRequest(..GetRequestObj(), "getWebhookInfo")
 }
 
+/// Универсальный вызов любого метода Bot API.
+/// form - объект с полями (значения приводятся к строке).
+Method CallMethod(method As %String, form As %DynamicObject = "") As %DynamicObject
+{
+	#dim request as %Net.HttpRequest
+	set request = ..GetRequestObj()
+	if ($isobject(form)) {
+		set iter = form.%GetIterator()
+		while (iter.%GetNext(.key, .value)) {
+			set type = form.%GetTypeOf(key)
+			if (type = "object") {
+				set value = value.%ToJSON()
+			} elseif (type = "array") {
+				set value = value.%ToJSON()
+			}
+			do request.InsertFormData(key, value)
+		}
+	}
+	return ..ExecuteRequest(request, method)
+}
+
 }

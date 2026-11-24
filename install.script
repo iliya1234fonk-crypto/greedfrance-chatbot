@@ -1,0 +1,4 @@
+    zn "USER"
+    write "import: ",##class(%SYSTEM.OBJ).ImportDir("/irisrun/repo/src","*.cls","ck",,1),!
+    write "update: ",##class(Ens.Director).UpdateProduction(),!
+    halt
