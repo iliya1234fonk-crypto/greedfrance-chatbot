@@ -1,0 +1,2 @@
+time="2026-11-24T17:05:26Z" level=warning msg="/workspaces/greedfrance-chatbot/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+service "iris" is not running
