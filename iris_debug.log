@@ -1,1 +1,19 @@
-marker Tue Nov 24 00:27:31 UTC 2026
+time="2026-11-24T00:27:58Z" level=warning msg="/workspaces/greedfrance-chatbot/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+
+Node: 40c238bd1f49, Instance: IRIS
+
+USER>
+
+USER>
+Running:1
+
+USER>
+Production:dc.greedfrance.GreedFranceProduction
+
+USER>
+NeedsUpdate:0
+
+USER>
+Cred telegram exists:1
+
+USER>
