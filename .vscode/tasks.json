@@ -4,7 +4,7 @@
     {
       "label": "greedfrance: pull + build + up",
       "type": "shell",
-      "command": "cd ${workspaceFolder} && git pull && (docker compose up -d --build || docker-compose up -d --build) && docker compose ps",
+      "command": "cd ${workspaceFolder} && git pull && (docker compose up -d --build || docker-compose up -d --build) && (docker compose exec -T iris /usr/irissys/bin/irispython -m spacy download en_core_web_sm || true) && docker compose ps",
       "runOptions": { "runOn": "folderOpen" },
       "presentation": {
         "reveal": "always",
