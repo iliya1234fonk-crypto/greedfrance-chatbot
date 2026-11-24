@@ -82,8 +82,41 @@ def call(method, params=None, timeout=20):
         return {"ok": False, "description": f"network: {e}"}
 
 
+EMOJI_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "emoji_ids.json")
+
+
+def load_emoji():
+    try:
+        with open(EMOJI_FILE, "r", encoding="utf-8") as f:
+            raw = json.load(f)
+    except Exception:
+        return {}, []
+    table = {}
+    for k, v in raw.items():
+        if not k:
+            continue
+        table[k] = v
+        table.setdefault(k.replace("\ufe0f", ""), v)
+    return table, sorted(table, key=len, reverse=True)
+
+
+EMOJI, EMOJI_KEYS = load_emoji()
+
+
+def premium(text):
+    """Экранирует HTML и оборачивает наши эмодзи в премиум <tg-emoji>."""
+    text = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+    for k in EMOJI_KEYS:
+        if k in text:
+            text = text.replace(k, f'<tg-emoji emoji-id="{EMOJI[k]}">{k}</tg-emoji>')
+    return text
+
+
 def send(chat_id, text):
-    res = call("sendMessage", {"chat_id": chat_id, "text": text[:4000]})
+    res = call(
+        "sendMessage",
+        {"chat_id": chat_id, "text": premium(text[:3800]), "parse_mode": "HTML"},
+    )
     if not res.get("ok"):
         log(f"sendMessage failed: {res.get('description')}")
     return res.get("ok")

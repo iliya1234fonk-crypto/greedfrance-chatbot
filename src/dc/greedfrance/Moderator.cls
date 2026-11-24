@@ -26,11 +26,11 @@ Method %OnNew() As %Status
 {
 	set cred = ##class(Ens.Config.Credentials).%OpenId(..#CREDENTIALSID)
 	if '$isobject(cred) {
-		quit $$$ERROR($$$GeneralError, "Credentials '"_..#CREDENTIALSID_"' not found")
+		quit $system.Status.Error(5001, "Credentials '"_..#CREDENTIALSID_"' not found")
 	}
 	set ..API = ##class(Telegram.API).%New(cred.Password, "")
 	if '$isobject(..API) {
-		quit $$$ERROR($$$GeneralError, "Cannot create Telegram API object")
+		quit $system.Status.Error(5001, "Cannot create Telegram API object")
 	}
 	quit $$$OK
 }
@@ -60,7 +60,8 @@ Method Send(chatId As %String, text As %String, replyTo As %String = "") As %Dyn
 {
 	set form = {}
 	set form.chat_id = chatId
-	set form.text = $extract(text, 1, 4000)
+	set form.parse_mode = "HTML"
+	set form.text = ##class(dc.greedfrance.Emoji).Render($extract(text, 1, 3800))
 	if (replyTo '= "") {
 		set form.reply_to_message_id = replyTo
 	}
@@ -165,7 +166,7 @@ Method TryBan(chatId As %String, userId As %String) As %String
 	set form.revoke_messages = 1
 	set res = ..API.CallMethod("banChatMember", form)
 	if (+res.ok = 1) {
-		quit "🔨 Забанен."
+		quit "⛔️ Забанен."
 	}
 	quit "⚠️ Сервер не поддерживает banChatMember."
 }
@@ -196,7 +197,7 @@ Method TryKick(chatId As %String, userId As %String) As %String
 		set form2.user_id = userId
 		set form2.only_if_banned = 1
 		do ..API.CallMethod("unbanChatMember", form2)
-		quit "👢 Кикнут."
+		quit "💥 Кикнут."
 	}
 	quit "⚠️ Сервер не поддерживает кик/бан."
 }
@@ -209,7 +210,7 @@ Method TryMute(chatId As %String, userId As %String) As %String
 	set form.permissions = {"can_send_messages":false,"can_send_audios":false,"can_send_documents":false,"can_send_photos":false,"can_send_videos":false,"can_send_video_notes":false,"can_send_voice_notes":false,"can_send_polls":false,"can_send_other_messages":false,"can_add_web_page_previews":false,"can_invite_users":false,"can_pin_messages":false}
 	set res = ..API.CallMethod("restrictChatMember", form)
 	if (+res.ok = 1) {
-		quit "🔇 Замучен."
+		quit "🔒 Замучен."
 	}
 	quit "⚠️ Сервер не поддерживает restrictChatMember."
 }
@@ -222,7 +223,7 @@ Method TryUnmute(chatId As %String, userId As %String) As %String
 	set form.permissions = {"can_send_messages":true,"can_send_audios":true,"can_send_documents":true,"can_send_photos":true,"can_send_videos":true,"can_send_video_notes":true,"can_send_voice_notes":true,"can_send_polls":true,"can_send_other_messages":true,"can_add_web_page_previews":true,"can_invite_users":true}
 	set res = ..API.CallMethod("restrictChatMember", form)
 	if (+res.ok = 1) {
-		quit "🔊 Размучен."
+		quit "🗝 Размучен."
 	}
 	quit "⚠️ Сервер не поддерживает restrictChatMember."
 }
@@ -334,7 +335,7 @@ Method Handle(msg As %DynamicObject) As %Boolean
 		quit 1
 	}
 	if (cmd = "id") {
-		do ..Send(chatId, "chat_id: "_chatId_$c(10)_"user_id: "_fromId_$c(10)_"тип: "_msg.chat.type)
+		do ..Send(chatId, "📍 chat_id: "_chatId_$c(10)_"user_id: "_fromId_$c(10)_"тип: "_msg.chat.type)
 		quit 1
 	}
 	if (cmd = "stats") {
@@ -352,7 +353,7 @@ Method Handle(msg As %DynamicObject) As %Boolean
 
 	// дальше — только админы
 	if ('..IsAdmin(chatId, fromId)) {
-		do ..Send(chatId, "⛔ Команда только для админов группы.", messageId)
+		do ..Send(chatId, "⛔️ Команда только для админов группы.", messageId)
 		quit 1
 	}
 
@@ -378,7 +379,7 @@ Method Handle(msg As %DynamicObject) As %Boolean
 	}
 	if ((cmd = "unwarn") || (cmd = "resetwarns")) {
 		do ..ResetWarns(chatId, target)
-		do ..Send(chatId, "♻️ Предупреждения сброшены: "_target)
+		do ..Send(chatId, "✅ Предупреждения сброшены: "_target)
 		quit 1
 	}
 	if (cmd = "ban") {
@@ -403,11 +404,11 @@ Method Handle(msg As %DynamicObject) As %Boolean
 	}
 	if (cmd = "trust") {
 		set ^GreedAdmin(chatId, target) = 1
-		do ..Send(chatId, "✅ "_target_" теперь может пользоваться командами бота.")
+		do ..Send(chatId, "👑 "_target_" теперь может пользоваться командами бота.")
 		quit 1
 	}
 
-	do ..Send(chatId, "Неизвестная команда. /help — список команд", messageId)
+	do ..Send(chatId, "❓ Неизвестная команда. /help — список команд", messageId)
 	quit 1
 }
 
@@ -442,7 +443,7 @@ ClassMethod StatsText(chatId As %String) As %String
 		quit:(uid = "")
 		set warns = warns + ..WarnCount(chatId, uid)
 	}
-	quit "📊 Статистика чата"_$c(10)
+	quit "💯 Статистика чата"_$c(10)
 		_"сообщений всего: "_+$get(^GreedStats(chatId, "all"))_$c(10)
 		_"сегодня: "_+$get(^GreedStats(chatId, "day", day))_$c(10)
 		_"предупреждений: "_warns
@@ -450,7 +451,7 @@ ClassMethod StatsText(chatId As %String) As %String
 
 ClassMethod RulesText() As %String
 {
-	quit "📜 Правила чата"_$c(10)
+	quit "📕 Правила чата"_$c(10)
 		_"1. Без спама и флуда."_$c(10)
 		_"2. Без оскорблений и травли."_$c(10)
 		_"3. Реклама — только с разрешения админов."_$c(10)
@@ -460,7 +461,7 @@ ClassMethod RulesText() As %String
 
 ClassMethod HelpText() As %String
 {
-	quit "🛡 GreedFrance — модерация"_$c(10)
+	quit "🤖 GreedFrance — модерация"_$c(10)
 		_"/help — команды"_$c(10)
 		_"/rules — правила чата"_$c(10)
 		_"/id — chat_id и твой id"_$c(10)
@@ -471,7 +472,7 @@ ClassMethod HelpText() As %String
 		_"/del — удалить сообщение (ответом на него)"_$c(10)
 		_"/ban /unban /kick /mute /unmute — если сервер поддерживает"_$c(10)
 		_"/trust — разрешить участнику команды бота"_$c(10)_$c(10)
-		_"Антифлуд включён: "_..#FLOODCOUNT_" сообщений за "_..#FLOODWINDOW_" сек — удаление и предупреждение."
+		_"⏰ Антифлуд включён: "_..#FLOODCOUNT_" сообщений за "_..#FLOODWINDOW_" сек — удаление и предупреждение."
 }
 
 }
