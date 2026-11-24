@@ -3,7 +3,9 @@ time="2026-11-24T17:14:12Z" level=warning msg="/workspaces/greedfrance-chatbot/d
  Container greedfrance-chatbot-iris-1 Recreate 
  Container greedfrance-chatbot-iris-1 Error response from daemon: No such image: greedfrance-chatbot-iris:latest 
 Error response from daemon: No such image: greedfrance-chatbot-iris:latest
-time="2026-11-24T17:14:30Z" level=warning msg="/workspaces/greedfrance-chatbot/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+time="2026-11-24T17:14:42Z" level=warning msg="/workspaces/greedfrance-chatbot/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
 NAME      IMAGE     COMMAND   SERVICE   CREATED   STATUS    PORTS
 time="2026-11-24T17:14:30Z" level=warning msg="/workspaces/greedfrance-chatbot/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+service "iris" is not running
+time="2026-11-24T17:14:42Z" level=warning msg="/workspaces/greedfrance-chatbot/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
 service "iris" is not running
