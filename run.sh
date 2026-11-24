@@ -12,8 +12,6 @@ cd "$REPO" || { echo "нет папки $REPO"; exit 1; }
 
 {
   echo "=== $(date -u) ==="
-  echo "--- ps before"
-  docker ps -a
   echo "--- up"
   timeout 300 docker compose up -d --no-build 2>&1 | tail -10
   echo "--- wait"
@@ -24,7 +22,7 @@ cd "$REPO" || { echo "нет папки $REPO"; exit 1; }
       break
     fi
   done
-  echo "--- ps after"
+  echo "--- ps"
   docker compose ps
 } > "$LOG" 2>&1
 
@@ -35,7 +33,15 @@ Write "cred:",##class(Ens.Config.Credentials).%ExistsId("telegram"),!
 Write "cmpEmoji:",$system.OBJ.Compile("dc.greedfrance.Emoji","ck"),!
 Write "cmpModerator:",$system.OBJ.Compile("dc.greedfrance.Moderator","ck"),!
 Write "render:",##class(dc.greedfrance.Emoji).Render("x ⚠ y"),!
-If '##class(Ens.Director).IsProductionRunning() { Write "start:",##class(Ens.Director).StartProduction("dc.greedfrance.GreedFranceProduction"),! }
+Write "render tag:",($find(##class(dc.greedfrance.Emoji).Render("x ⚠ y"),"<tg-emoji")>0),!
+If '##class(Ens.Director).IsProductionRunning() {
+	Set st=##class(Ens.Director).StartProduction("dc.greedfrance.GreedFranceProduction")
+	If $system.Status.IsError(st) {
+		Do ##class(Ens.Director).StopProduction(10,1)
+		Set st=##class(Ens.Director).StartProduction("dc.greedfrance.GreedFranceProduction")
+	}
+	Write "start:",st,!
+}
 Write "running now:",##class(Ens.Director).IsProductionRunning(),!
 Set q="SELECT TOP 12 TimeLogged,Type,ConfigName,Text FROM Ens_Util.Log ORDER BY ID DESC"
 Set rs=##class(%SQL.Statement).%ExecDirect(,q)

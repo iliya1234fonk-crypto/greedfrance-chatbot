@@ -59,11 +59,11 @@ ClassMethod Short(res As %DynamicObject) As %String
 Method Send(chatId As %String, text As %String, replyTo As %String = "") As %DynamicObject
 {
 	set form = {}
-	set form.chat_id = chatId
-	set form.parse_mode = "HTML"
-	set form.text = ##class(dc.greedfrance.Emoji).Render($extract(text, 1, 3800))
+	do form.%Set("chat_id", chatId)
+	do form.%Set("parse_mode", "HTML")
+	do form.%Set("text", ##class(dc.greedfrance.Emoji).Render($extract(text, 1, 3800)))
 	if (replyTo '= "") {
-		set form.reply_to_message_id = replyTo
+		do form.%Set("reply_to_message_id", replyTo)
 	}
 	quit ..API.CallMethod("sendMessage", form)
 }
@@ -74,8 +74,8 @@ Method DeleteMessage(chatId As %String, messageId As %String) As %Boolean
 		quit 0
 	}
 	set form = {}
-	set form.chat_id = chatId
-	set form.message_id = messageId
+	do form.%Set("chat_id", chatId)
+	do form.%Set("message_id", messageId)
 	set res = ..API.CallMethod("deleteMessage", form)
 	quit (+res.ok = 1)
 }
@@ -86,8 +86,8 @@ Method DeleteMessage(chatId As %String, messageId As %String) As %Boolean
 Method AdminState(chatId As %String, userId As %String) As %Integer
 {
 	set form = {}
-	set form.chat_id = chatId
-	set form.user_id = userId
+	do form.%Set("chat_id", chatId)
+	do form.%Set("user_id", userId)
 	set res = ..API.CallMethod("getChatMember", form)
 	if (+res.ok '= 1) {
 		quit -1
@@ -161,9 +161,9 @@ Method Flood(chatId As %String, userId As %String) As %Boolean
 Method TryBan(chatId As %String, userId As %String) As %String
 {
 	set form = {}
-	set form.chat_id = chatId
-	set form.user_id = userId
-	set form.revoke_messages = 1
+	do form.%Set("chat_id", chatId)
+	do form.%Set("user_id", userId)
+	do form.%Set("revoke_messages", 1)
 	set res = ..API.CallMethod("banChatMember", form)
 	if (+res.ok = 1) {
 		quit "😡 Забанен."
@@ -174,9 +174,9 @@ Method TryBan(chatId As %String, userId As %String) As %String
 Method TryUnban(chatId As %String, userId As %String) As %String
 {
 	set form = {}
-	set form.chat_id = chatId
-	set form.user_id = userId
-	set form.only_if_banned = 1
+	do form.%Set("chat_id", chatId)
+	do form.%Set("user_id", userId)
+	do form.%Set("only_if_banned", 1)
 	set res = ..API.CallMethod("unbanChatMember", form)
 	if (+res.ok = 1) {
 		quit "🙂 Разбанен."
@@ -187,15 +187,15 @@ Method TryUnban(chatId As %String, userId As %String) As %String
 Method TryKick(chatId As %String, userId As %String) As %String
 {
 	set form = {}
-	set form.chat_id = chatId
-	set form.user_id = userId
-	set form.revoke_messages = 1
+	do form.%Set("chat_id", chatId)
+	do form.%Set("user_id", userId)
+	do form.%Set("revoke_messages", 1)
 	set res = ..API.CallMethod("banChatMember", form)
 	if (+res.ok = 1) {
 		set form2 = {}
-		set form2.chat_id = chatId
-		set form2.user_id = userId
-		set form2.only_if_banned = 1
+		do form2.%Set("chat_id", chatId)
+		do form2.%Set("user_id", userId)
+		do form2.%Set("only_if_banned", 1)
 		do ..API.CallMethod("unbanChatMember", form2)
 		quit "💔 Кикнут."
 	}
@@ -205,9 +205,9 @@ Method TryKick(chatId As %String, userId As %String) As %String
 Method TryMute(chatId As %String, userId As %String) As %String
 {
 	set form = {}
-	set form.chat_id = chatId
-	set form.user_id = userId
-	set form.permissions = {"can_send_messages":false,"can_send_audios":false,"can_send_documents":false,"can_send_photos":false,"can_send_videos":false,"can_send_video_notes":false,"can_send_voice_notes":false,"can_send_polls":false,"can_send_other_messages":false,"can_add_web_page_previews":false,"can_invite_users":false,"can_pin_messages":false}
+	do form.%Set("chat_id", chatId)
+	do form.%Set("user_id", userId)
+	do form.%Set("permissions", {"can_send_messages":false,"can_send_audios":false,"can_send_documents":false,"can_send_photos":false,"can_send_videos":false,"can_send_video_notes":false,"can_send_voice_notes":false,"can_send_polls":false,"can_send_other_messages":false,"can_add_web_page_previews":false,"can_invite_users":false,"can_pin_messages":false})
 	set res = ..API.CallMethod("restrictChatMember", form)
 	if (+res.ok = 1) {
 		quit "💤 Замучен."
@@ -218,9 +218,9 @@ Method TryMute(chatId As %String, userId As %String) As %String
 Method TryUnmute(chatId As %String, userId As %String) As %String
 {
 	set form = {}
-	set form.chat_id = chatId
-	set form.user_id = userId
-	set form.permissions = {"can_send_messages":true,"can_send_audios":true,"can_send_documents":true,"can_send_photos":true,"can_send_videos":true,"can_send_video_notes":true,"can_send_voice_notes":true,"can_send_polls":true,"can_send_other_messages":true,"can_add_web_page_previews":true,"can_invite_users":true}
+	do form.%Set("chat_id", chatId)
+	do form.%Set("user_id", userId)
+	do form.%Set("permissions", {"can_send_messages":true,"can_send_audios":true,"can_send_documents":true,"can_send_photos":true,"can_send_videos":true,"can_send_video_notes":true,"can_send_voice_notes":true,"can_send_polls":true,"can_send_other_messages":true,"can_add_web_page_previews":true,"can_invite_users":true})
 	set res = ..API.CallMethod("restrictChatMember", form)
 	if (+res.ok = 1) {
 		quit "🙂 Размучен."
